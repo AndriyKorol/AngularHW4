@@ -1,0 +1,14 @@
+.postcard{
+  height: 250px;
+  display: flex;
+}
+
+li{
+  z-index: 1;
+  background-color: ghostwhite;
+  margin: 5px;
+}
+
+button{
+  margin: 5px;
+}

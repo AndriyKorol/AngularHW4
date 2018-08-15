@@ -1,0 +1,116 @@
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-triangle-path"
+></ngx-spinner>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="card card-body mb-3 col-6 mx-auto mt-3">
+      <form  ngForm="form-group" #form="ngForm" (submit)="onSubmit(form)" novalidate>
+        <h5 class="card-title mx-auto">Add post</h5>
+        <div class="form-group">
+          <label
+            for="title"
+            class="title-label"
+          >Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="title"
+            name="title"
+            [ngClass]="{'is__invalid_input': (titleInput.errors && form.submitted) || (titleInput.touched && form.submitted)}"
+            [(ngModel)]="post.title"
+            #titleInput="ngModel"
+            minlength="2"
+            required
+            titleInput.value=""
+          >
+          <div class="invalid-feedback" [hidden]="!titleInput.errors?.touched">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!titleInput.errors?.required">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!titleInput.errors?.minlength">Field should has more characters</div>
+        </div>
+        <!--/.form-group-->
+        <div class="form-group">
+          <label
+            for="email"
+            class="email-label"
+          >Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="email"
+            name="body"
+            required
+            email=""
+            [(ngModel)]="post.email"
+            #emailInput="ngModel"
+            [ngClass]="{'is__invalid_input': (emailInput.errors && form.submitted) || (emailInput.touched && form.submitted)}"
+            minlength="5"
+          >
+          <div class="invalid-feedback" [hidden]="!emailInput.errors?.required">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!emailInput.errors?.touched">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!emailInput.errors?.minlength">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!emailInput.errors?.email ">Email address is invalid</div>
+        </div>
+        <!--/.form-group-->
+        <div class="form-group">
+          <label
+            for="body"
+            class="body-label"
+          >Body</label>
+          <input
+            type="text"
+            id="body"
+            placeholder="body"
+            name="body"
+            minlength="2"
+            class="form-control"
+            [(ngModel)]="post.body"
+            #bodyInput="ngModel"
+            [ngClass]="{'is__invalid_input': (bodyInput.errors && form.submitted) || (bodyInput.touched && form.submitted)}"
+            required
+          >
+          <div class="invalid-feedback" [hidden]="!bodyInput.errors?.touched">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!bodyInput.errors?.minlength">Field is required</div>
+          <div class="invalid-feedback" [hidden]="!bodyInput.errors?.required">Field is required</div>
+        </div>
+        <!--/.form-group-->
+        <button type="submit" class="btn btn-primary" >Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col col-6 mb-3" *ngFor="let post of posts" >
+      <div class="card postcard" [ngClass]="{'card-expand': !post.commentsHidden}">
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">{{ post.body }}</p>
+          <button class="btn btn-danger" (click)="onDelete(post.id)">Delete</button>
+          <button class="btn btn-primary" (click)="toggleComments(post)">
+            {{ post.commentsHidden ? 'Show comments' : 'Hide comments' }}
+          </button>
+        </div>
+        <!--/.card-body-->
+        <div class="card-footer-content" *ngIf="!post.commentsHidden">
+          <ul class="list-group">
+            <li class="list-group-item mt-2 mb-2 pt-5 d-flex justify-content-between" *ngFor="let comment of comments">
+              <blockquote>
+                <h6 class="card-title">{{ comment.name }}</h6>
+                <p class="card-text">{{ comment.body }}</p>
+                <cite><a href="mailto:{{ comment.email }}">— {{ comment.email }}</a></cite>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+        <!-- /.card-footer-content -->
+      </div>
+      <!--/.card-->
+    </div>
+    <!--/.row-->
+  </div>
+  <!--/.container-->
+</div>
