@@ -21,7 +21,7 @@
             id="title"
             placeholder="title"
             name="title"
-            [ngClass]="{'is__invalid_input': (titleInput.errors && form.submitted) || (titleInput.touched && form.submitted)}"
+            [ngClass]="{'is-invalid': (titleInput.errors && form.submitted) || (titleInput.touched && titleInput.errors)}"
             [(ngModel)]="post.title"
             #titleInput="ngModel"
             minlength="2"
@@ -48,7 +48,7 @@
             email=""
             [(ngModel)]="post.email"
             #emailInput="ngModel"
-            [ngClass]="{'is__invalid_input': (emailInput.errors && form.submitted) || (emailInput.touched && form.submitted)}"
+            [ngClass]="{'is-invalid': (emailInput.errors && form.submitted) || (emailInput.touched && emailInput.errors)}"
             minlength="5"
           >
           <div class="invalid-feedback" [hidden]="!emailInput.errors?.required">Field is required</div>
@@ -71,7 +71,7 @@
             class="form-control"
             [(ngModel)]="post.body"
             #bodyInput="ngModel"
-            [ngClass]="{'is__invalid_input': (bodyInput.errors && form.submitted) || (bodyInput.touched && form.submitted)}"
+            [ngClass]="{'is-nvalid': (bodyInput.errors && form.submitted) || (bodyInput.touched && bodyInput.errors)}"
             required
           >
           <div class="invalid-feedback" [hidden]="!bodyInput.errors?.touched">Field is required</div>
