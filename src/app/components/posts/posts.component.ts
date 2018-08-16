@@ -3,7 +3,6 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/Post';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import { User } from '../../models/User';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommentsService } from '../../services/comment.service';
 import { Comment } from '../../models/Comment';
@@ -15,20 +14,6 @@ import { Comment } from '../../models/Comment';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  users: User[] = [
-    {
-      userId: 1,
-      email: 'user1@test.com'
-    },
-    {
-      userId: 2,
-      email: 'user2@test.com'
-    },
-    {
-      userId: 3,
-      email: 'user3@test.com'
-    }
-  ];
   comment: Comment = {
     name: '',
     email: '',
@@ -36,7 +21,6 @@ export class PostsComponent implements OnInit {
   };
   comments: Comment[];
   post: Post = {
-    userId: 0,
     title: '',
     body: '',
     email: '',
@@ -96,24 +80,10 @@ export class PostsComponent implements OnInit {
   }
 
   onSubmit() {
-
-    let userId;
     this.spinner.show();
 
     setTimeout(() => {
-      if (!this.users.some(user => user.email === this.post.email)) {
-        userId = this.users.length + 1;
-        const newUser: User = {
-          userId: userId,
-          email: this.post.email
-        };
-        this.users.push(newUser);
-      } else {
-        userId = this.users.filter(user => user.email.includes(this.post.email))[0].userId;
-      }
-
       const newPost: Post = {
-        userId: userId,
         id: this.postId,
         title: this.post.title,
         body: this.post.body,
