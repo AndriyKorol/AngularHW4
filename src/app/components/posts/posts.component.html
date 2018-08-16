@@ -79,7 +79,7 @@
           <div class="invalid-feedback" [hidden]="!bodyInput.errors?.required">Field is required</div>
         </div>
         <!--/.form-group-->
-        <button type="submit" class="btn btn-primary" >Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.form.invalid">Submit</button>
       </form>
     </div>
   </div>
